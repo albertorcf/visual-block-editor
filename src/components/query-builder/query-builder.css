@@ -34,3 +34,68 @@
 .queryBuilder .rule {
   margin-bottom: 4px;
 }
+
+/* --- Ajuste de bordas e arredondamento dos campos e botões --- */
+
+.queryBuilder select,
+.queryBuilder input,
+.queryBuilder button {
+  border-radius: 4px;
+  /* ou 2px se quiser ainda mais reto */
+  border: 1px solid #ccc;
+  /* borda mais fina e discreta */
+}
+
+/* Ajusta também o padding para inputs e selects */
+.queryBuilder select,
+.queryBuilder input {
+  padding: 2px 6px;
+}
+
+/* Botões ficam levemente menos arredondados */
+.queryBuilder .ruleGroup-addRule,
+.queryBuilder .ruleGroup-addGroup {
+  border-radius: 4px;
+}
+
+/* --- Ajuste de background e cores dos campos e botões --- */
+
+/* Campos de variável, operador e valor */
+.queryBuilder select,
+.queryBuilder input {
+  background-color: #f0f0f0;
+  /* Cinza médio claro */
+  color: #222;
+  /* Texto um pouco mais escuro */
+  border: 1px solid #bbb;
+  /* Bordas mais visíveis */
+}
+
+/* Botões (+Rule, +Group, X) */
+.queryBuilder button {
+  background-color: #e0e0e0;
+  /* Cinza um pouco mais forte */
+  color: #222;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+/* Hover dos botões */
+.queryBuilder button:hover {
+  background-color: #c8c8c8;
+  /* Hover mais forte */
+  border-color: #999;
+}
+
+/* Botões de remover (x) */
+.queryBuilder .rule-remove,
+.queryBuilder .ruleGroup-remove {
+  background-color: #e0e0e0;
+}
+
+/* IMPORTANTE: Mantém o azul original nos grupos (não muda aqui) */
+/* Se quiser reforçar: */
+/*
+.queryBuilder .ruleGroup {
+  background-color: inherit;
+}
+*/
