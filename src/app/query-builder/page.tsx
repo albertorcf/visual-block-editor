@@ -46,6 +46,14 @@ const initialAction: RuleGroupType = {
   ],
 };
 
+const actionOperators = [
+  { name: "=", label: "=" },
+  { name: "+=", label: "+=" },
+  { name: "-=", label: "-=" },
+  { name: "*=", label: "*=" },
+  { name: "/=", label: "/=" },
+];
+
 export default function QueryBuilderPage() {
 
   const [query, setQuery] = useState<RuleGroupType>(initialQuery);
@@ -74,6 +82,7 @@ export default function QueryBuilderPage() {
             query={actionQuery}
             onQueryChange={setActionQuery}
             className="bg-red-50" // <- vermelho super suave
+            operators={actionOperators}
           />
         </div>
       </div>
