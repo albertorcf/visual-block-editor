@@ -1,6 +1,6 @@
 // src/app/page.tsx
 "use client";
-import QueryBuilderEditor from "@/components/QueryBuilderEditor";
+import QueryBuilderEditor from "@/components/query-builder/QueryBuilderEditor";
 
 export default function QueryBuilderPage() {
 
