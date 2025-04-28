@@ -68,4 +68,5 @@ npx shadcn@latest init
 [GitHub](https://github.com/react-querybuilder/react-querybuilder)
 
 ```bash
+npm install react-querybuilder
 ```
