@@ -1,6 +1,12 @@
 # visual-block-editor
 
+- [Setup](#setup)
+- [JS edit text](#js-edit-text)
+
+
 # Setup
+
+Next.js + Tailwind + shadcn/ui + App Router
 
 ```bash
 # criar repositório vazio sem README e .gitignore
@@ -13,7 +19,10 @@ npx create-next-app@latest . \
   --src-dir \
   --app \
   --eslint
+
+npx shadcn@latest init
 ```
+
 
 # JS edit text
 
