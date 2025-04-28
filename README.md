@@ -1,8 +1,22 @@
 # visual-block-editor
 
+- [ToDo](#todo)
 - [Setup](#setup)
 - [JS edit text](#js-edit-text)
 - [Componentes](#componentes)
+
+
+# Todo
+
+- Componente ```<ConditionEditor />``` Editar as condições (campos, operadores, valores)
+  - Múltiplos campos! (Ex: a > 12.1 && b < 5) e uso de parênteses para definir prioridades
+  - Usar Query Builder???
+- Componente ```<ActionEditor />```	Editar as ações (atribuição ou chamada de função)
+- Componente ```<RuleEditor />```	Junta ambos (condição + ação) numa regra
+- Estilo visual tipo Query Builder: campos, dropdowns e inputs lado a lado
+- Adicionar botão mover para cima/baixo as ações e condições
+- Validar tipos (ex.: se for atribuição, valor precisa existir)
+- No futuro: salvar como JSON ou fazer export para outros sistemas
 
 
 # Setup
@@ -22,6 +36,9 @@ npx create-next-app@latest . \
   --eslint
 
 npx shadcn@latest init
+npx shadcn@latest add input card button 
+
+npm install react-querybuilder
 ```
 
 
