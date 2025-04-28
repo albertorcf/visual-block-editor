@@ -8,15 +8,17 @@ interface QueryBuilderEditorProps {
   fields: { name: string; label: string }[];
   query: RuleGroupType;
   onQueryChange: (query: RuleGroupType) => void;
+  className?: string; // <- novo parâmetro opcional
 }
 
 export default function QueryBuilderEditor({
   fields,
   query,
   onQueryChange,
+  className = "",
 }: QueryBuilderEditorProps) {
   return (
-    <div className="p-4 border rounded-md bg-white">
+    <div className={`p-4 border rounded-md ${className}`}>
       <QueryBuilder
         fields={fields}
         query={query}

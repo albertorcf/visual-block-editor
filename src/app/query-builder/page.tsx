@@ -73,6 +73,7 @@ export default function QueryBuilderPage() {
             fields={fields}
             query={actionQuery}
             onQueryChange={setActionQuery}
+            className="bg-red-50" // <- vermelho super suave
           />
         </div>
       </div>
