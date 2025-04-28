@@ -35,29 +35,66 @@ const initialQuery: RuleGroupType = {
   ],
 };
 
+const initialAction: RuleGroupType = {
+  combinator: "and",
+  rules: [
+    {
+      field: "a",
+      operator: "=",
+      value: 21,
+    },
+  ],
+};
+
 export default function QueryBuilderPage() {
 
   const [query, setQuery] = useState<RuleGroupType>(initialQuery);
+  const [actionQuery, setActionQuery] = useState<RuleGroupType>(initialAction);
 
   return (
-    <main className="flex flex-col gap-6 p-6 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold">Query Builder Editor</h1>
+    <main className="flex flex-col gap-6 p-6 max-w-6xl mx-auto">
+      <h1 className="text-2xl font-bold mb-6">Query Builder Editor</h1>
 
-      <div>
-        <h2 className="text-lg font-semibold mb-2">Editor de Condição</h2>
-        <QueryBuilderEditor
-          fields={fields}
-          query={query}
-          onQueryChange={setQuery}
-        />
+      <div className="flex flex-col lg:flex-row gap-6">
+        {/* Coluna 1: Editor de Condição */}
+        <div className="flex-1">
+          <h2 className="text-lg font-semibold mb-2">Editor de Condição</h2>
+          <QueryBuilderEditor
+            fields={fields}
+            query={query}
+            onQueryChange={setQuery}
+          />
+        </div>
+
+        {/* Coluna 2: Editor de Ação */}
+        <div className="flex-1">
+          <h2 className="text-lg font-semibold mb-2">Editor de Ação</h2>
+          <QueryBuilderEditor
+            fields={fields}
+            query={actionQuery}
+            onQueryChange={setActionQuery}
+          />
+        </div>
       </div>
 
-      <div>
-        <h2 className="text-lg font-semibold mt-8 mb-2">Condição gerada:</h2>
-        <pre className="bg-gray-100 p-4 rounded text-xs">
-          {JSON.stringify(query, null, 2)}
-        </pre>
+      {/* Área de visualização do JSON gerado */}
+      <div className="flex flex-col lg:flex-row gap-6 mt-10">
+        {/* Coluna 1: JSON Condição */}
+        <div className="flex-1">
+          <h2 className="text-lg font-semibold mb-2">JSON Condição:</h2>
+          <pre className="bg-gray-100 p-4 rounded text-xs">
+            {JSON.stringify(query, null, 2)}
+          </pre>
+        </div>
+
+        {/* Coluna 2: JSON Ação */}
+        <div className="flex-1">
+          <h2 className="text-lg font-semibold mb-2">JSON Ação:</h2>
+          <pre className="bg-gray-100 p-4 rounded text-xs">
+            {JSON.stringify(actionQuery, null, 2)}
+          </pre>
+        </div>
       </div>
     </main>
-  );
+  ); 
 }
