@@ -2,6 +2,7 @@
 
 - [Setup](#setup)
 - [JS edit text](#js-edit-text)
+- [Componentes](#componentes)
 
 
 # Setup
@@ -47,4 +48,24 @@ npx shadcn@latest init
     }
   ]
 }
+```
+
+
+# Componentes
+
+## Blockly
+
+[Site/Demo](https://developers.google.com/blockly?hl=pt-br)
+
+## react-awesome-query-builder
+
+[GitHub](https://github.com/ukrbublik/react-awesome-query-builder)  
+[Demo](https://ukrbublik.github.io/react-awesome-query-builder/)
+
+## React Query Builder
+
+[Site/Demo](https://react-querybuilder.js.org/)  
+[GitHub](https://github.com/react-querybuilder/react-querybuilder)
+
+```bash
 ```
