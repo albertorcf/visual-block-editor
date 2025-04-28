@@ -6,3 +6,31 @@
   --rqb-border-style: solid;
   --rqb-border-radius: 0.25rem;
 }
+
+/* Deixa botões + Rule + Group mais compactos */
+.queryBuilder .ruleGroup-addRule,
+.queryBuilder .ruleGroup-addGroup {
+  padding: 2px 6px;
+  font-size: 12px;
+  height: 28px;
+}
+
+/* Deixa os selects (dropdowns) e inputs menores */
+.queryBuilder .ruleGroup-combinators,
+.queryBuilder .ruleField,
+.queryBuilder .ruleOperator,
+.queryBuilder .ruleValue {
+  height: 28px;
+  padding: 2px 6px;
+  font-size: 14px;
+}
+
+/* Reduz padding geral dos grupos */
+.queryBuilder .ruleGroup {
+  padding: 6px;
+}
+
+/* Margens menores entre regras */
+.queryBuilder .rule {
+  margin-bottom: 4px;
+}

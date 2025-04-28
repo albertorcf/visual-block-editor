@@ -13,6 +13,7 @@
   - Usar Query Builder???
 - Componente ```<ActionEditor />```	Editar as ações (atribuição ou chamada de função)
 - Componente ```<RuleEditor />```	Junta ambos (condição + ação) numa regra
+- Componente ```StrategyEditor.tsx```	Permite editar toda a estratégia (init + estrategia)
 - Estilo visual tipo Query Builder: campos, dropdowns e inputs lado a lado
 - Adicionar botão mover para cima/baixo as ações e condições
 - Validar tipos (ex.: se for atribuição, valor precisa existir)
