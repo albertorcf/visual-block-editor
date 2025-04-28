@@ -3,9 +3,16 @@
 # Setup
 
 ```bash
+# criar repositório vazio sem README e .gitignore
 git clone git@github.com:albertorcf/visual-block-editor.git
 cd visual-block-editor/
 
+npx create-next-app@latest . \
+  --typescript \
+  --tailwind \
+  --src-dir \
+  --app \
+  --eslint
 ```
 
 # JS edit text
