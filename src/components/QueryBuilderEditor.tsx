@@ -1,8 +1,9 @@
 // src/components/QueryBuilderEditor.tsx
 "use client";
+import { useState } from "react";
 import { QueryBuilder, RuleGroupType } from "react-querybuilder";
 import "react-querybuilder/dist/query-builder.css";  // Importa o CSS padrão
-import { useState } from "react";
+import "./query-builder.css";  // Importa o CSS personalizado
 
 const fields = [
   { name: "a", label: "a" },
