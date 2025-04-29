@@ -4,6 +4,7 @@ import { useState } from "react";
 import { RuleGroupType } from "react-querybuilder";
 import QueryBuilderEditor from "@/components/query-builder/QueryBuilderEditor";
 
+// condicao: "index == 1 || (atual.close <= suporte && saldoUSDT >= atual.close * qty && flagBuy)"
 const fields = [
   { name: "a", label: "a", valueSources: ['field', 'value'], },
   { name: "b", label: "b", valueSources: ['field', 'value'], },
@@ -14,6 +15,12 @@ const fields = [
     //groupNumber: 'group1',
     valueSources: ['field', 'value'],
   },
+  { name: "index", label: "index", valueSources: ['field', 'value'], },
+  { name: "atual.close", label: "atual.close", valueSources: ['field', 'value'], },
+  { name: "suporte", label: "suporte", valueSources: ['field', 'value'], },
+  { name: "saldoUSDT", label: "saldoUSDT", valueSources: ['field', 'value'], },
+  { name: "qty", label: "qty", valueSources: ['field', 'value'], },
+  { name: "flagBuy", label: "flagBuy", valueSources: ['field', 'value'], },
 ];
 
 const initialQuery: RuleGroupType = {
