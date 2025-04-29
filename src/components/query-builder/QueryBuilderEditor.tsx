@@ -4,7 +4,7 @@
 
 import { QueryBuilder, RuleGroupType, Option } from "react-querybuilder";
 import "react-querybuilder/dist/query-builder.css";
-import "./query-builder.css";
+import "./styles.css";
 
 interface QueryBuilderEditorProps {
   fields: { name: string; label: string }[];
