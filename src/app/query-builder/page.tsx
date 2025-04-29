@@ -68,12 +68,6 @@ const actionOperators = [
   { name: "/=", label: "/=" },
 ];
 
-// Para tipos de ação
-const actionTypes = [
-  { name: "assign", label: "Atribuição" },
-  { name: "function", label: "Função" },
-];
-
 export default function QueryBuilderPage() {
 
   const [query, setQuery] = useState<RuleGroupType>(initialQuery);
