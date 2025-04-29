@@ -98,12 +98,12 @@ export default function QueryBuilderPage() {
 
   return (
     <main className="flex flex-col gap-4 p-4 max-w-6xl mx-auto">
-      <h1 className="text-2xl font-bold mb-6">Query Builder Editor</h1>
+      <h1 className="text-2xl font-bold mb-2">Query Builder Editor</h1>
 
       <div className="flex flex-col lg:flex-row gap-4">
         {/* Coluna 1: Editor de Condição */}
         <div className="flex-1">
-          <h2 className="text-lg font-semibold mb-2">Editor de Condição</h2>
+          <h2 className="text-lg font-semibold mb-1">Editor de Condição</h2>
           <QueryBuilderEditor
             fields={fields}
             query={query}
@@ -113,7 +113,7 @@ export default function QueryBuilderPage() {
 
         {/* Coluna 2: Editor de Ação */}
         <div className="flex-1">
-          <h2 className="text-lg font-semibold mb-2">Editor de Ação</h2>
+          <h2 className="text-lg font-semibold mb-1">Editor de Ação</h2>
           <QueryBuilderEditor
             fields={actionFields}
             query={actionQuery}
@@ -125,10 +125,10 @@ export default function QueryBuilderPage() {
       </div>
 
       {/* Área de visualização do JSON gerado */}
-      <div className="flex flex-col lg:flex-row gap-6 mt-10">
+      <div className="flex flex-col lg:flex-row gap-4 mt-1 mx-auto">
         {/* Coluna 1: JSON Condição */}
         <div className="flex-1">
-          <h2 className="text-lg font-semibold mb-2">JSON Condição:</h2>
+          <h2 className="text-lg font-semibold mb-1">JSON Condição:</h2>
           <pre className="bg-gray-100 p-4 rounded text-xs">
             {JSON.stringify(query, null, 2)}
           </pre>
@@ -136,12 +136,12 @@ export default function QueryBuilderPage() {
 
         {/* Coluna 2: JSON Ação */}
         <div className="flex-1">
-          <h2 className="text-lg font-semibold mb-2">Ação (como código):</h2>
+          <h2 className="text-lg font-semibold mb-1">Ação (como código):</h2>
           <pre className="bg-red-50 p-4 rounded text-xs">
             {generateActionCode(actionQuery)}
           </pre>
 
-          <h2 className="text-lg font-semibold mt-4 mb-2">JSON bruto:</h2>
+          <h2 className="text-lg font-semibold mt-4 mb-1">JSON bruto:</h2>
           <pre className="bg-red-50 p-4 rounded text-xs">
             {JSON.stringify(actionQuery, null, 2)}
           </pre>
