@@ -3,6 +3,13 @@
 import { useState } from "react";
 import { RuleGroupType } from "react-querybuilder";
 import QueryBuilderEditor from "@/components/query-builder/QueryBuilderEditor";
+import { baseStrategy } from "@/data/strategies/baseStrategy";
+
+const { init, varsCondicao, varsAcao, rules } = baseStrategy;
+console.log('init =', init)
+console.log('varsCondicao =', varsCondicao)
+console.log('varsAcao =', varsAcao)
+console.log('rules =', rules)
 
 // condicao: "index == 1 || (atual.close <= suporte && saldoUSDT >= atual.close * qty && flagBuy)"
 const fields = [
