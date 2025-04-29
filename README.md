@@ -37,7 +37,7 @@ npx create-next-app@latest . \
   --eslint
 
 npx shadcn@latest init
-npx shadcn@latest add input card button select
+npx shadcn@latest add input card button select radio-group scroll-area
 
 npm install react-querybuilder
 ```

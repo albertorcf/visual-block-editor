@@ -4,19 +4,14 @@ import { useState, useEffect } from "react";
 import { RuleGroupType } from "react-querybuilder";
 import QueryBuilderEditor from "@/components/query-builder/QueryBuilderEditor";
 import { baseStrategy } from "@/data/strategies/baseStrategy";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 const { init, varsCondicao, varsAcao, rules } = baseStrategy;
 console.log('init =', init)
 console.log('varsCondicao =', varsCondicao)
 console.log('varsAcao =', varsAcao)
 console.log('rules =', rules)
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 // condicao: "index == 1 || (atual.close <= suporte && saldoUSDT >= atual.close * qty && flagBuy)"
 const fields = [
@@ -127,21 +122,21 @@ export default function QueryBuilderPage() {
 
       <div className="max-w-md mb-4">
         <label className="block text-sm font-medium mb-1">Regra selecionada:</label>
-        <Select
-          value={String(selectedRuleIndex)}
-          onValueChange={(value) => setSelectedRuleIndex(parseInt(value))}
-        >
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Selecione a regra" />
-          </SelectTrigger>
-          <SelectContent>
+        <ScrollArea className="h-40 rounded border p-2">
+          <RadioGroup
+            value={String(selectedRuleIndex)}
+            onValueChange={(value) => setSelectedRuleIndex(parseInt(value))}
+          >
             {rules.map((r, i) => (
-              <SelectItem key={i} value={String(i)}>
-                {`${i + 1} - ${r.descr}`}
-              </SelectItem>
+              <div key={i} className="flex items-center space-x-2">
+                <RadioGroupItem value={String(i)} id={`rule-${i}`} />
+                <label htmlFor={`rule-${i}`} className="text-sm">
+                  {`${i + 1} - ${r.descr}`}
+                </label>
+              </div>
             ))}
-          </SelectContent>
-        </Select>
+          </RadioGroup>
+        </ScrollArea>
       </div>
 
 
