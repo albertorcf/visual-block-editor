@@ -46,6 +46,13 @@ const initialAction: RuleGroupType = {
   ],
 };
 
+const actionFields = [
+  { name: "a", label: "a" },
+  { name: "b", label: "b" },
+  { name: "func()", label: "func()" },
+  { name: "reset()", label: "reset()" },
+];
+
 const actionOperators = [
   { name: "=", label: "=" },
   { name: "+=", label: "+=" },
@@ -54,10 +61,33 @@ const actionOperators = [
   { name: "/=", label: "/=" },
 ];
 
+// Para tipos de ação
+const actionTypes = [
+  { name: "assign", label: "Atribuição" },
+  { name: "function", label: "Função" },
+];
+
 export default function QueryBuilderPage() {
 
   const [query, setQuery] = useState<RuleGroupType>(initialQuery);
   const [actionQuery, setActionQuery] = useState<RuleGroupType>(initialAction);
+
+  function generateActionCode(action: RuleGroupType): string {
+    return action.rules
+      .map((rule) => {
+        if ("field" in rule && typeof rule.field === "string") {
+          const isFunction = rule.field.endsWith("()");
+          if (isFunction) {
+            return `${rule.field}`;
+          } else {
+            return `${rule.field} ${rule.operator} ${rule.value}`;
+          }
+        }
+        return "";
+      })
+      .filter(Boolean)
+      .join("; ");
+  }
 
   return (
     <main className="flex flex-col gap-6 p-6 max-w-6xl mx-auto">
@@ -78,7 +108,7 @@ export default function QueryBuilderPage() {
         <div className="flex-1">
           <h2 className="text-lg font-semibold mb-2">Editor de Ação</h2>
           <QueryBuilderEditor
-            fields={fields}
+            fields={actionFields}
             query={actionQuery}
             onQueryChange={setActionQuery}
             className="bg-red-50" // <- vermelho super suave
@@ -99,8 +129,13 @@ export default function QueryBuilderPage() {
 
         {/* Coluna 2: JSON Ação */}
         <div className="flex-1">
-          <h2 className="text-lg font-semibold mb-2">JSON Ação:</h2>
-          <pre className="bg-gray-100 p-4 rounded text-xs">
+          <h2 className="text-lg font-semibold mb-2">Ação (como código):</h2>
+          <pre className="bg-red-100 p-4 rounded text-xs">
+            {generateActionCode(actionQuery)}
+          </pre>
+
+          <h2 className="text-lg font-semibold mt-4 mb-2">JSON bruto:</h2>
+          <pre className="bg-gray-50 p-4 rounded text-xs">
             {JSON.stringify(actionQuery, null, 2)}
           </pre>
         </div>
