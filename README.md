@@ -37,7 +37,7 @@ npx create-next-app@latest . \
   --eslint
 
 npx shadcn@latest init
-npx shadcn@latest add input card button 
+npx shadcn@latest add input card button select
 
 npm install react-querybuilder
 ```

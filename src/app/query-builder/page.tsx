@@ -1,6 +1,6 @@
 // src/app/page.tsx
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { RuleGroupType } from "react-querybuilder";
 import QueryBuilderEditor from "@/components/query-builder/QueryBuilderEditor";
 import { baseStrategy } from "@/data/strategies/baseStrategy";
@@ -10,6 +10,13 @@ console.log('init =', init)
 console.log('varsCondicao =', varsCondicao)
 console.log('varsAcao =', varsAcao)
 console.log('rules =', rules)
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 // condicao: "index == 1 || (atual.close <= suporte && saldoUSDT >= atual.close * qty && flagBuy)"
 const fields = [
@@ -84,8 +91,18 @@ const actionOperators = [
 
 export default function QueryBuilderPage() {
 
+  const [selectedRuleIndex, setSelectedRuleIndex] = useState(0);
+
+  const selectedRule = rules[selectedRuleIndex];
+  const [condQuery, setCondQuery] = useState(selectedRule.condicao);
+
   const [query, setQuery] = useState<RuleGroupType>(initialQuery);
   const [actionQuery, setActionQuery] = useState<RuleGroupType>(initialAction);
+
+  useEffect(() => {
+    setCondQuery(rules[selectedRuleIndex].condicao);
+  }, [selectedRuleIndex]);
+
 
   function generateActionCode(action: RuleGroupType): string {
     return action.rules
@@ -107,6 +124,26 @@ export default function QueryBuilderPage() {
   return (
     <main className="flex flex-col gap-4 p-4 max-w-6xl mx-auto">
       <h1 className="text-2xl font-bold mb-2">Query Builder Editor</h1>
+
+      <div className="max-w-md mb-4">
+        <label className="block text-sm font-medium mb-1">Regra selecionada:</label>
+        <Select
+          value={String(selectedRuleIndex)}
+          onValueChange={(value) => setSelectedRuleIndex(parseInt(value))}
+        >
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Selecione a regra" />
+          </SelectTrigger>
+          <SelectContent>
+            {rules.map((r, i) => (
+              <SelectItem key={i} value={String(i)}>
+                {`${i + 1} - ${r.descr}`}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
 
       <div className="flex flex-col lg:flex-row gap-4">
         {/* Coluna 1: Editor de Condição */}
