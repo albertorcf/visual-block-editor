@@ -22,7 +22,7 @@ export default function QueryBuilderEditor({
   className = "",
 }: QueryBuilderEditorProps) {
   return (
-    <div className={`p-4 border rounded-md ${className}`}>
+    <div className={`p-2 border rounded-md ${className}`}>
       <QueryBuilder
         fields={fields}
         query={query}
