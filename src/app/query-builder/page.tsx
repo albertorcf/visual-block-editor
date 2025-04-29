@@ -5,8 +5,15 @@ import { RuleGroupType } from "react-querybuilder";
 import QueryBuilderEditor from "@/components/query-builder/QueryBuilderEditor";
 
 const fields = [
-  { name: "a", label: "a" },
-  { name: "b", label: "b" },
+  { name: "a", label: "a", valueSources: ['field', 'value'], },
+  { name: "b", label: "b", valueSources: ['field', 'value'], },
+  {
+    name: 'groupedField1',
+    label: 'Grouped Field 1',
+    //comparator: 'groupNumber',
+    //groupNumber: 'group1',
+    valueSources: ['field', 'value'],
+  },
 ];
 
 const initialQuery: RuleGroupType = {
