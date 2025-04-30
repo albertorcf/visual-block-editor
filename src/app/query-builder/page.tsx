@@ -120,13 +120,31 @@ export default function QueryBuilderPage() {
     <main className="flex flex-col gap-4 p-4 max-w-6xl mx-auto">
       <h1 className="text-2xl font-bold mb-2">Query Builder Editor</h1>
 
-      <div className="max-w-md mb-1">
-        <label className="block text-sm font-medium mb-1">Regra selecionada:</label>
-        <div className="relative">
+
+      <div className="flex flex-col lg:flex-row gap-6 mb-6">
+        {/* Listbox de regras (selecionável) */}
+        <div className="flex-1">
           <Listbox
             items={rules.map((r) => r.descr)}
             selectedIndex={selectedRuleIndex}
             onSelect={setSelectedRuleIndex}
+            title="Regras"
+          />
+        </div>
+
+        {/* Listbox de variáveis da condição */}
+        <div className="flex-1">
+          <Listbox
+            items={[...Object.keys(init), ...varsCondicao]}
+            title="Variáveis da Condição"
+          />
+        </div>
+
+        {/* Listbox de variáveis da ação */}
+        <div className="flex-1">
+          <Listbox
+            items={[...Object.keys(init), ...varsAcao]}
+            title="Variáveis da Ação"
           />
         </div>
       </div>
