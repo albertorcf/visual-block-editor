@@ -84,11 +84,11 @@ export default function QueryBuilderPage() {
   }
 
   return (
-    <main className="flex flex-col gap-4 p-4 max-w-6xl mx-auto">
+    <main className="flex flex-col gap-4 w-full max-w-none px-4 sm:px-6 mx-auto">
       <h1 className="text-2xl font-bold mb-2">Query Builder Editor</h1>
 
 
-      <div className="flex flex-col lg:flex-row gap-6 mb-1">
+      <div className="flex flex-col lg:flex-row gap-6 mb-1 w-full">
         {/* Listbox de regras (selecionável) */}
         <div className="flex-1">
           <Listbox
@@ -120,7 +120,7 @@ export default function QueryBuilderPage() {
       </div>
 
 
-      <div className="flex flex-col lg:flex-row gap-4">
+      <div className="flex flex-col lg:flex-row gap-4 w-full">
         {/* Editor de Condição */}
         <div className="flex-1">
           <h2 className="text-lg font-semibold mb-1">Editor de Condição</h2>

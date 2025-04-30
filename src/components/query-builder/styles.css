@@ -99,3 +99,30 @@
   background-color: inherit;
 }
 */
+
+
+/* */
+.queryBuilder .rule {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+/*
+.queryBuilder .ruleField,
+.queryBuilder .ruleOperator,
+.queryBuilder .ruleValue,
+.queryBuilder .ruleGroup-combinators,
+.queryBuilder button {
+  flex: 1 1 100%;
+  min-width: 0;
+  width: 100%;
+}
+*/
+
+.queryBuilder .ruleValue {
+  flex: 1 1 100%;
+  min-width: 0;
+  width: 100%;
+}

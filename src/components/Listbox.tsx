@@ -16,7 +16,7 @@ export default function Listbox({
   heightClass = "h-40", // 👈 valor padrão
 }: ListboxProps) {
   return (
-    <div className="max-w-md mb-1">
+    <div className="mb-1">
       {title && <label className="block text-sm font-medium mb-1">{title}</label>}
       <div className={`${heightClass} overflow-y-auto rounded border bg-white`}>
         <ul className="divide-y divide-gray-200">
