@@ -119,6 +119,14 @@ export default function QueryBuilderPage() {
       .join("; ");
   }
 
+  function handleSelectRule(newIndex: number) {
+    // Atualiza o objeto da regra atual com a condição editada
+    rules[selectedRuleIndex].condicao = condQuery as any;
+
+    // Muda o índice selecionado
+    setSelectedRuleIndex(newIndex);
+  }
+
   return (
     <main className="flex flex-col gap-4 p-4 max-w-6xl mx-auto">
       <h1 className="text-2xl font-bold mb-2">Query Builder Editor</h1>
@@ -130,7 +138,7 @@ export default function QueryBuilderPage() {
           <Listbox
             items={rules.map((r) => r.descr)}
             selectedIndex={selectedRuleIndex}
-            onSelect={setSelectedRuleIndex}
+            onSelect={handleSelectRule}
             title="Regras"
             heightClass="h-37"
           />
