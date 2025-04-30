@@ -32,43 +32,6 @@ const fields = [
   { name: "flagBuy", label: "flagBuy", valueSources: ['field', 'value'], },
 ];
 
-const initialQuery: RuleGroupType = {
-  combinator: "and",
-  rules: [
-    {
-      field: "a",
-      operator: ">",
-      value: 12.1,
-    },
-    {
-      field: "b",
-      operator: "=",
-      value: 0,
-    },
-    {
-      combinator: "or",
-      rules: [
-        {
-          field: "b",
-          operator: "<",
-          value: 0,
-        },
-      ],
-    },
-  ],
-};
-
-const initialAction: RuleGroupType = {
-  combinator: "and",
-  rules: [
-    {
-      field: "a",
-      operator: "=",
-      value: 21,
-    },
-  ],
-};
-
 const actionFields = [
   { name: "a", label: "a" },
   { name: "b", label: "b" },
@@ -195,7 +158,7 @@ export default function QueryBuilderPage() {
 
 
       {/* Área de visualização do JSON gerado */}
-      <div className="flex flex-col lg:flex-row gap-4 mt-1 mx-auto">
+      <div className="flex flex-col lg:flex-row gap-4 mt-1">
         
         {/* Coluna 1: JSON Condição */}
         <div className="flex-1">
