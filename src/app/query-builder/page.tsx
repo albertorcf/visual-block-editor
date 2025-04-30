@@ -94,14 +94,17 @@ export default function QueryBuilderPage() {
     rules[selectedRuleIndex].condicao
   );
 
-  //const [query, setQuery] = useState<RuleGroupType>(initialQuery);
-  const [actionQuery, setActionQuery] = useState<RuleGroupType>(initialAction);
+  const [actionQuery, setActionQuery] = useState<RuleGroupType>(
+    rules[selectedRuleIndex].acao
+  );
 
   useEffect(() => {
     setCondQuery(rules[selectedRuleIndex].condicao);
+    setActionQuery(rules[selectedRuleIndex].acao);
   }, [selectedRuleIndex]);
 
 
+  /*
   function generateActionCode(action: RuleGroupType): string {
     return action.rules
       .map((rule) => {
@@ -118,10 +121,12 @@ export default function QueryBuilderPage() {
       .filter(Boolean)
       .join("; ");
   }
+  */
 
   function handleSelectRule(newIndex: number) {
-    // Atualiza o objeto da regra atual com a condição editada
+    // Atualiza o objeto da regra atual com a condição e ação editada
     rules[selectedRuleIndex].condicao = condQuery as any;
+    rules[selectedRuleIndex].acao = actionQuery as any;
 
     // Muda o índice selecionado
     setSelectedRuleIndex(newIndex);
@@ -179,10 +184,10 @@ export default function QueryBuilderPage() {
         <div className="flex-1">
           <h2 className="text-lg font-semibold mb-1">Editor de Ação</h2>
           <QueryBuilderEditor
-            fields={actionFields}
+            fields={[...Object.keys(init), ...varsAcao].map((name) => ({ name, label: name }))}
             query={actionQuery}
             onQueryChange={setActionQuery}
-            className="bg-red-50" // <- vermelho super suave
+            className="bg-red-50"
             operators={actionOperators}
           />
         </div>
@@ -191,6 +196,7 @@ export default function QueryBuilderPage() {
 
       {/* Área de visualização do JSON gerado */}
       <div className="flex flex-col lg:flex-row gap-4 mt-1 mx-auto">
+        
         {/* Coluna 1: JSON Condição */}
         <div className="flex-1">
           <h2 className="text-lg font-semibold mb-1">JSON Condição:</h2>
@@ -201,12 +207,7 @@ export default function QueryBuilderPage() {
 
         {/* Coluna 2: JSON Ação */}
         <div className="flex-1">
-          <h2 className="text-lg font-semibold mb-1">Ação (como código):</h2>
-          <pre className="bg-red-50 p-4 rounded text-xs">
-            {generateActionCode(actionQuery)}
-          </pre>
-
-          <h2 className="text-lg font-semibold mt-4 mb-1">JSON bruto:</h2>
+          <h2 className="text-lg font-semibold mb-1">JSON ação:</h2>
           <pre className="bg-red-50 p-4 rounded text-xs">
             {JSON.stringify(actionQuery, null, 2)}
           </pre>

@@ -44,7 +44,15 @@ export const baseStrategy = {
           { field: "flagBuy", operator: "=", valueSource: "value", value: true }
         ]
       } satisfies RuleGroupType,
-      acao: "sell(); flagBuy = true; reset(); last = index;"
+      acao: {
+        combinator: "and",
+        rules: [
+          { field: "sell()", operator: "=", value: "" },
+          { field: "flagBuy", operator: "=", value: true },
+          { field: "reset()", operator: "=", value: "" },
+          { field: "last", operator: "=", value: "index", valueSource: "field" }
+        ]
+      } satisfies RuleGroupType,
     },
     {
       type: "buy",
@@ -63,7 +71,15 @@ export const baseStrategy = {
           }
         ]
       } satisfies RuleGroupType,
-      acao: "buy(); flagBuy = false; reset(); last = index;"
+      acao: {
+        combinator: "and",
+        rules: [
+          { field: "buy()", operator: "=", value: "" },
+          { field: "flagBuy", operator: "=", value: false },
+          { field: "reset()", operator: "=", value: "" },
+          { field: "last", operator: "=", value: "index", valueSource: "field" }
+        ]
+      } satisfies RuleGroupType,
     },
     {
       type: "reset",
@@ -74,7 +90,13 @@ export const baseStrategy = {
           { field: "tempoInativo", operator: ">", valueSource: "value", value: 10 }
         ]
       } satisfies RuleGroupType,
-      acao: "reset(); last = index;"
+      acao: {
+        combinator: "and",
+        rules: [
+          { field: "reset()", operator: "=", value: "" },
+          { field: "last", operator: "=", value: "index", valueSource: "field" }
+        ]
+      } satisfies RuleGroupType,
     }
   ]
 };
