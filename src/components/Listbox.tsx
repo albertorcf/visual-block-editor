@@ -5,13 +5,20 @@ interface ListboxProps {
   selectedIndex?: number;
   onSelect?: (index: number) => void;
   title?: string;
+  heightClass?: string; // 👈 novo
 }
 
-export default function Listbox({ items, selectedIndex, onSelect, title }: ListboxProps) {
+export default function Listbox({ 
+  items, 
+  selectedIndex, 
+  onSelect, 
+  title,
+  heightClass = "h-40", // 👈 valor padrão
+}: ListboxProps) {
   return (
-    <div className="max-w-md mb-4">
+    <div className="max-w-md mb-1">
       {title && <label className="block text-sm font-medium mb-1">{title}</label>}
-      <div className="h-40 overflow-y-auto rounded border bg-white">
+      <div className={`${heightClass} overflow-y-auto rounded border bg-white`}>
         <ul className="divide-y divide-gray-200">
           {items.map((item, index) => (
             <li

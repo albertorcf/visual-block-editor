@@ -121,7 +121,7 @@ export default function QueryBuilderPage() {
       <h1 className="text-2xl font-bold mb-2">Query Builder Editor</h1>
 
 
-      <div className="flex flex-col lg:flex-row gap-6 mb-6">
+      <div className="flex flex-col lg:flex-row gap-6 mb-1">
         {/* Listbox de regras (selecionável) */}
         <div className="flex-1">
           <Listbox
@@ -129,6 +129,7 @@ export default function QueryBuilderPage() {
             selectedIndex={selectedRuleIndex}
             onSelect={setSelectedRuleIndex}
             title="Regras"
+            heightClass="h-37"
           />
         </div>
 
@@ -137,6 +138,7 @@ export default function QueryBuilderPage() {
           <Listbox
             items={[...Object.keys(init), ...varsCondicao]}
             title="Variáveis da Condição"
+            heightClass="h-37"
           />
         </div>
 
@@ -145,6 +147,7 @@ export default function QueryBuilderPage() {
           <Listbox
             items={[...Object.keys(init), ...varsAcao]}
             title="Variáveis da Ação"
+            heightClass="h-37"
           />
         </div>
       </div>
