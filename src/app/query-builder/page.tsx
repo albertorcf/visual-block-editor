@@ -89,9 +89,12 @@ export default function QueryBuilderPage() {
   const [selectedRuleIndex, setSelectedRuleIndex] = useState(0);
 
   const selectedRule = rules[selectedRuleIndex];
-  const [condQuery, setCondQuery] = useState(selectedRule.condicao);
 
-  const [query, setQuery] = useState<RuleGroupType>(initialQuery);
+  const [condQuery, setCondQuery] = useState<RuleGroupType>(
+    rules[selectedRuleIndex].condicao
+  );
+
+  //const [query, setQuery] = useState<RuleGroupType>(initialQuery);
   const [actionQuery, setActionQuery] = useState<RuleGroupType>(initialAction);
 
   useEffect(() => {
@@ -158,9 +161,9 @@ export default function QueryBuilderPage() {
         <div className="flex-1">
           <h2 className="text-lg font-semibold mb-1">Editor de Condição</h2>
           <QueryBuilderEditor
-            fields={fields}
-            query={query}
-            onQueryChange={setQuery}
+            fields={[...Object.keys(init), ...varsCondicao].map((name) => ({ name, label: name }))}
+            query={condQuery}
+            onQueryChange={setCondQuery}
           />
         </div>
 
@@ -177,13 +180,14 @@ export default function QueryBuilderPage() {
         </div>
       </div>
 
+
       {/* Área de visualização do JSON gerado */}
       <div className="flex flex-col lg:flex-row gap-4 mt-1 mx-auto">
         {/* Coluna 1: JSON Condição */}
         <div className="flex-1">
           <h2 className="text-lg font-semibold mb-1">JSON Condição:</h2>
           <pre className="bg-gray-100 p-4 rounded text-xs">
-            {JSON.stringify(query, null, 2)}
+            {JSON.stringify(condQuery, null, 2)}
           </pre>
         </div>
 
