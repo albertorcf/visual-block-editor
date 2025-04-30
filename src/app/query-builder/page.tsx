@@ -66,26 +66,6 @@ export default function QueryBuilderPage() {
     setActionQuery(rules[selectedRuleIndex].acao);
   }, [selectedRuleIndex]);
 
-
-  /*
-  function generateActionCode(action: RuleGroupType): string {
-    return action.rules
-      .map((rule) => {
-        if ("field" in rule && typeof rule.field === "string") {
-          const isFunction = rule.field.endsWith("()");
-          if (isFunction) {
-            return `${rule.field}`;
-          } else {
-            return `${rule.field} ${rule.operator} ${rule.value}`;
-          }
-        }
-        return "";
-      })
-      .filter(Boolean)
-      .join("; ");
-  }
-  */
-
   function handleSelectRule(newIndex: number) {
     // Atualiza o objeto da regra atual com a condição e ação editada
     rules[selectedRuleIndex].condicao = condQuery as any;
@@ -93,6 +73,14 @@ export default function QueryBuilderPage() {
 
     // Muda o índice selecionado
     setSelectedRuleIndex(newIndex);
+  }
+
+  function buildFieldList(rawFields: string[]): { name: string; label: string; valueSources: string[] }[] {
+    return rawFields.map((name) => ({
+      name,
+      label: name,
+      valueSources: name.endsWith("()") ? ['value'] : ['value', 'field'],
+    }));
   }
 
   return (
@@ -133,21 +121,21 @@ export default function QueryBuilderPage() {
 
 
       <div className="flex flex-col lg:flex-row gap-4">
-        {/* Coluna 1: Editor de Condição */}
+        {/* Editor de Condição */}
         <div className="flex-1">
           <h2 className="text-lg font-semibold mb-1">Editor de Condição</h2>
           <QueryBuilderEditor
-            fields={[...Object.keys(init), ...varsCondicao].map((name) => ({ name, label: name }))}
+            fields={buildFieldList([...Object.keys(init), ...varsCondicao])}
             query={condQuery}
             onQueryChange={setCondQuery}
           />
         </div>
 
-        {/* Coluna 2: Editor de Ação */}
+        {/* Editor de Ação */}
         <div className="flex-1">
           <h2 className="text-lg font-semibold mb-1">Editor de Ação</h2>
           <QueryBuilderEditor
-            fields={[...Object.keys(init), ...varsAcao].map((name) => ({ name, label: name }))}
+            fields={buildFieldList([...Object.keys(init), ...varsAcao])}
             query={actionQuery}
             onQueryChange={setActionQuery}
             className="bg-red-50"
