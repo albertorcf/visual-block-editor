@@ -1,12 +1,12 @@
 // src/app/page.tsx
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import { RuleGroupType } from "react-querybuilder";
 import QueryBuilderEditor from "@/components/query-builder/QueryBuilderEditor";
-import { baseStrategy } from "@/data/strategies/baseStrategy";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import Listbox from "@/components/Listbox";
 
+// Carrega a estratégia de exemplo
+import { baseStrategy } from "@/data/strategies/baseStrategy";
 const { init, varsCondicao, varsAcao, rules } = baseStrategy;
 console.log('init =', init)
 console.log('varsCondicao =', varsCondicao)
@@ -120,23 +120,15 @@ export default function QueryBuilderPage() {
     <main className="flex flex-col gap-4 p-4 max-w-6xl mx-auto">
       <h1 className="text-2xl font-bold mb-2">Query Builder Editor</h1>
 
-      <div className="max-w-md mb-4">
+      <div className="max-w-md mb-1">
         <label className="block text-sm font-medium mb-1">Regra selecionada:</label>
-        <ScrollArea className="h-40 rounded border p-2">
-          <RadioGroup
-            value={String(selectedRuleIndex)}
-            onValueChange={(value) => setSelectedRuleIndex(parseInt(value))}
-          >
-            {rules.map((r, i) => (
-              <div key={i} className="flex items-center space-x-2">
-                <RadioGroupItem value={String(i)} id={`rule-${i}`} />
-                <label htmlFor={`rule-${i}`} className="text-sm">
-                  {`${i + 1} - ${r.descr}`}
-                </label>
-              </div>
-            ))}
-          </RadioGroup>
-        </ScrollArea>
+        <div className="relative">
+          <Listbox
+            items={rules.map((r) => r.descr)}
+            selectedIndex={selectedRuleIndex}
+            onSelect={setSelectedRuleIndex}
+          />
+        </div>
       </div>
 
 
