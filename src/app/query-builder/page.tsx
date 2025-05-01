@@ -101,6 +101,7 @@ export default function QueryBuilderPage() {
               v.value ? v.value : "",
               v.expr ?? ""
             ])}
+            heightClass="h-37"
           />
         </div>
 
@@ -114,6 +115,7 @@ export default function QueryBuilderPage() {
               v.value ? v.value : "",
               v.expr ?? ""
             ])}
+            heightClass="h-37"
           />
         </div>
 
