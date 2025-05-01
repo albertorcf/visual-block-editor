@@ -13,38 +13,12 @@ console.log('varsCondicao =', varsCondicao)
 console.log('varsAcao =', varsAcao)
 console.log('rules =', rules)
 
-// condicao: "index == 1 || (atual.close <= suporte && saldoUSDT >= atual.close * qty && flagBuy)"
-const fields = [
-  { name: "a", label: "a", valueSources: ['field', 'value'], },
-  { name: "b", label: "b", valueSources: ['field', 'value'], },
-  {
-    name: 'groupedField1',
-    label: 'Grouped Field 1',
-    //comparator: 'groupNumber',
-    //groupNumber: 'group1',
-    valueSources: ['field', 'value'],
-  },
-  { name: "index", label: "index", valueSources: ['field', 'value'], },
-  { name: "atual.close", label: "atual.close", valueSources: ['field', 'value'], },
-  { name: "suporte", label: "suporte", valueSources: ['field', 'value'], },
-  { name: "saldoUSDT", label: "saldoUSDT", valueSources: ['field', 'value'], },
-  { name: "qty", label: "qty", valueSources: ['field', 'value'], },
-  { name: "flagBuy", label: "flagBuy", valueSources: ['field', 'value'], },
-];
-
-const actionFields = [
-  { name: "a", label: "a" },
-  { name: "b", label: "b" },
-  { name: "func()", label: "func()" },
-  { name: "reset()", label: "reset()" },
-];
-
 const actionOperators = [
   { name: "=", label: "=" },
-  { name: "+=", label: "+=" },
-  { name: "-=", label: "-=" },
-  { name: "*=", label: "*=" },
-  { name: "/=", label: "/=" },
+  //{ name: "+=", label: "+=" },
+  //{ name: "-=", label: "-=" },
+  //{ name: "*=", label: "*=" },
+  //{ name: "/=", label: "/=" },
 ];
 
 export default function QueryBuilderPage() {
@@ -83,6 +57,23 @@ export default function QueryBuilderPage() {
     }));
   }
 
+  // init: mostra expr se houver, senão mostra valor
+  const initDisplay = init.map((v: any) =>
+    v.expr ? `${v.name} (${v.expr})` :
+      v.value !== undefined ? `${v.name}: ${String(v.value)}` :
+        v.name
+  );
+
+  // varsCondicao: mostra expr se houver
+  const varsCondicaoDisplay = varsCondicao.map((v: any) =>
+    v.expr ? `${v.name} (${v.expr})` : v.name
+  );
+
+  // varsAcao: por enquanto, apenas nome
+  const varsAcaoDisplay = varsAcao.map((v: any) =>
+    v.expr ? `${v.name} (${v.expr})` : v.name
+  );
+
   return (
     <main className="flex flex-col gap-4 w-full max-w-none px-4 sm:px-6 mx-auto">
       <h1 className="text-2xl font-bold mb-2">Query Builder Editor</h1>
@@ -103,7 +94,7 @@ export default function QueryBuilderPage() {
         {/* Listbox de variáveis da condição */}
         <div className="flex-1">
           <Listbox
-            items={[...Object.keys(init), ...varsCondicao]}
+            items={[...initDisplay, ...varsCondicaoDisplay]}
             title="Variáveis da Condição"
             heightClass="h-37"
           />
@@ -112,7 +103,7 @@ export default function QueryBuilderPage() {
         {/* Listbox de variáveis da ação */}
         <div className="flex-1">
           <Listbox
-            items={[...Object.keys(init), ...varsAcao]}
+            items={[...initDisplay, ...varsAcaoDisplay]}
             title="Variáveis da Ação"
             heightClass="h-37"
           />
@@ -125,7 +116,10 @@ export default function QueryBuilderPage() {
         <div className="flex-1">
           <h2 className="text-lg font-semibold mb-1">Editor de Condição</h2>
           <QueryBuilderEditor
-            fields={buildFieldList([...Object.keys(init), ...varsCondicao])}
+            fields={buildFieldList([
+              ...init.map((v) => v.name),
+              ...varsCondicao.map((v) => v.name)
+            ])}
             query={condQuery}
             onQueryChange={setCondQuery}
           />
@@ -135,7 +129,10 @@ export default function QueryBuilderPage() {
         <div className="flex-1">
           <h2 className="text-lg font-semibold mb-1">Editor de Ação</h2>
           <QueryBuilderEditor
-            fields={buildFieldList([...Object.keys(init), ...varsAcao])}
+            fields={buildFieldList([
+              ...init.map((v) => v.name),
+              ...varsAcao.map((v) => v.name)
+            ])}
             query={actionQuery}
             onQueryChange={setActionQuery}
             className="bg-red-50"

@@ -3,32 +3,32 @@ import { RuleGroupType } from "react-querybuilder";
 
 export const baseStrategy = {
   // Estado inicial da simulação
-  init: {
-    saldoUSDT: 100,
-    saldoSOL: 0.1,
-    delta: 1,
-    qty: 0.1,
-    taxa: 0.001,
-    flagBuy: true,
-    last: 1,
-    iddle: 10
-  },
+  init: [
+    { name: "saldoUSDT", value: 100 },
+    { name: "saldoSOL", value: 0.1 },
+    { name: "delta", value: 1 },
+    { name: "qty", value: 0.1 },
+    { name: "taxa", value: 0.001 },
+    { name: "flagBuy", value: true },
+    { name: "last", value: 1 },
+    { name: "iddle", value: 10 },  
+  ],
 
   // Campos usados nas condições
   varsCondicao: [
-    "resistencia",
-    "suporte",
-    "atual.close",
-    "index",
-    "valorOp",  // novo campo virtual - valor da operação (atual.close * qty)
-    "tempoInativo" // novo campo virtual (index - last)
+    { name: "resistencia" },
+    { name: "suporte" },
+    { name: "atual.close" },
+    { name: "index" },
+    { name: "valorOp", expr: "close * qty" },       // campo calculado - valor da operação (atual.close * qty)
+    { name: "tempoInativo", expr: "index - last" }  // campo calculado (index - last)
   ],
 
   // Campos/funções usados nas ações
   varsAcao: [
-    "buy()",
-    "sell()",
-    "reset()"
+    { name: "buy()" },
+    { name: "sell()" },
+    { name: "reset()", descr: "Recalcula suportes e resistências" }
   ],
 
   // Regras de decisão
