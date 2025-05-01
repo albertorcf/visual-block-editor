@@ -94,20 +94,29 @@ export default function QueryBuilderPage() {
         {/* Listbox de variáveis da condição */}
         <div className="flex-1">
           <Listbox
-            items={[...initDisplay, ...varsCondicaoDisplay]}
             title="Variáveis da Condição"
-            heightClass="h-37"
+            headers={["Nome", "Valor", "Expr"]}
+            items={[...init, ...varsCondicao].map((v: any) => [
+              v.name,
+              v.value ? v.value : "",
+              v.expr ?? ""
+            ])}
           />
         </div>
 
         {/* Listbox de variáveis da ação */}
         <div className="flex-1">
           <Listbox
-            items={[...initDisplay, ...varsAcaoDisplay]}
             title="Variáveis da Ação"
-            heightClass="h-37"
+            headers={["Nome", "Valor", "Expr"]}
+            items={[...init, ...varsAcao].map((v: any) => [
+              v.name,
+              v.value ? v.value : "",
+              v.expr ?? ""
+            ])}
           />
         </div>
+
       </div>
 
 
