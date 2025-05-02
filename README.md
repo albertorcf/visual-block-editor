@@ -43,6 +43,11 @@ pnpm install react-querybuilder
 ```
 
 
+```bash
+pnpm dev
+```
+
+
 # JS edit text
 
 ```js
