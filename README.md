@@ -29,17 +29,17 @@ Next.js + Tailwind + shadcn/ui + App Router
 git clone git@github.com:albertorcf/visual-block-editor.git
 cd visual-block-editor/
 
-npx create-next-app@latest . \
+pnpx create-next-app@latest . \
   --typescript \
   --tailwind \
   --src-dir \
   --app \
   --eslint
 
-npx shadcn@latest init
-npx shadcn@latest add input card button select radio-group scroll-area
+pnpx shadcn@latest init
+pnpx shadcn@latest add input card button select radio-group scroll-area
 
-npm install react-querybuilder
+pnpm install react-querybuilder
 ```
 
 
@@ -86,5 +86,5 @@ npm install react-querybuilder
 [GitHub](https://github.com/react-querybuilder/react-querybuilder)
 
 ```bash
-npm install react-querybuilder
+pnpm install react-querybuilder
 ```
