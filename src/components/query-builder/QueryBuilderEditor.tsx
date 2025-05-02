@@ -1,7 +1,5 @@
 // src/components/query-builder/QueryBuilderEditor.tsx
-
 "use client";
-
 import { QueryBuilder, RuleGroupType, Option } from "react-querybuilder";
 import "react-querybuilder/dist/query-builder.css";
 import "./styles.css";

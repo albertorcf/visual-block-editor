@@ -1,7 +1,5 @@
 // src/components/Listbox.tsx
 
-import React from "react";
-
 interface ListboxProps {
   items: string[] | string[][];
   selectedIndex?: number;
