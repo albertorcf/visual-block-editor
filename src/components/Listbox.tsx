@@ -13,7 +13,7 @@ export default function Listbox({ items, selectedIndex, onSelect, title, heightC
   const isTable = Array.isArray(items[0]);
 
   return (
-    <div className="max-w-md mb-4">
+    <div className="max-w-md mb-1">
       {title && <label className="block text-sm font-medium mb-1">{title}</label>}
       <div className={`${heightClass} overflow-y-auto rounded border bg-white`}>
         {isTable ? (
