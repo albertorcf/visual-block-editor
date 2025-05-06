@@ -7,10 +7,10 @@ import Listbox from "@/components/Listbox";
 
 // Carrega a estratégia de exemplo
 import { baseStrategy } from "@/data/strategies/baseStrategy";
-const { init, varsCondicao, varsAcao, rules } = baseStrategy;
+const { init, varsCondition, varsAction, rules } = baseStrategy;
 console.log('init =', init)
-console.log('varsCondicao =', varsCondicao)
-console.log('varsAcao =', varsAcao)
+console.log('varsCondition =', varsCondition)
+console.log('varsAction =', varsAction)
 console.log('rules =', rules)
 
 const actionOperators = [
@@ -28,22 +28,22 @@ export default function QueryBuilderPage() {
   const selectedRule = rules[selectedRuleIndex];
 
   const [condQuery, setCondQuery] = useState<RuleGroupType>(
-    rules[selectedRuleIndex].condicao
+    rules[selectedRuleIndex].condition
   );
 
   const [actionQuery, setActionQuery] = useState<RuleGroupType>(
-    rules[selectedRuleIndex].acao
+    rules[selectedRuleIndex].action
   );
 
   useEffect(() => {
-    setCondQuery(rules[selectedRuleIndex].condicao);
-    setActionQuery(rules[selectedRuleIndex].acao);
+    setCondQuery(rules[selectedRuleIndex].condition);
+    setActionQuery(rules[selectedRuleIndex].action);
   }, [selectedRuleIndex]);
 
   function handleSelectRule(newIndex: number) {
     // Atualiza o objeto da regra atual com a condição e ação editada
-    rules[selectedRuleIndex].condicao = condQuery as any;
-    rules[selectedRuleIndex].acao = actionQuery as any;
+    rules[selectedRuleIndex].condition = condQuery as any;
+    rules[selectedRuleIndex].action = actionQuery as any;
 
     // Muda o índice selecionado
     setSelectedRuleIndex(newIndex);
@@ -64,13 +64,13 @@ export default function QueryBuilderPage() {
         v.name
   );
 
-  // varsCondicao: mostra expr se houver
-  const varsCondicaoDisplay = varsCondicao.map((v: any) =>
+  // varsCondition: mostra expr se houver
+  const varsConditionDisplay = varsCondition.map((v: any) =>
     v.expr ? `${v.name} (${v.expr})` : v.name
   );
 
-  // varsAcao: por enquanto, apenas nome
-  const varsAcaoDisplay = varsAcao.map((v: any) =>
+  // varsAction: por enquanto, apenas nome
+  const varsActionDisplay = varsAction.map((v: any) =>
     v.expr ? `${v.name} (${v.expr})` : v.name
   );
 
@@ -96,7 +96,7 @@ export default function QueryBuilderPage() {
           <Listbox
             title="Variáveis da Condição"
             headers={["Nome", "Valor", "Expr"]}
-            items={[...init, ...varsCondicao].map((v: any) => [
+            items={[...init, ...varsCondition].map((v: any) => [
               v.name,
               v.value ? v.value : "",
               v.expr ?? ""
@@ -110,7 +110,7 @@ export default function QueryBuilderPage() {
           <Listbox
             title="Variáveis da Ação"
             headers={["Nome", "Valor", "Expr"]}
-            items={[...init, ...varsAcao].map((v: any) => [
+            items={[...init, ...varsAction].map((v: any) => [
               v.name,
               v.value ? v.value : "",
               v.expr ?? ""
@@ -129,7 +129,7 @@ export default function QueryBuilderPage() {
           <QueryBuilderEditor
             fields={buildFieldList([
               ...init.map((v) => v.name),
-              ...varsCondicao.map((v) => v.name)
+              ...varsCondition.map((v) => v.name)
             ])}
             query={condQuery}
             onQueryChange={setCondQuery}
@@ -142,7 +142,7 @@ export default function QueryBuilderPage() {
           <QueryBuilderEditor
             fields={buildFieldList([
               ...init.map((v) => v.name),
-              ...varsAcao.map((v) => v.name)
+              ...varsAction.map((v) => v.name)
             ])}
             query={actionQuery}
             onQueryChange={setActionQuery}

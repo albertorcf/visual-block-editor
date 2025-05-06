@@ -15,7 +15,7 @@ export const baseStrategy = {
   ],
 
   // Campos usados nas condições
-  varsCondicao: [
+  varsCondition: [
     { name: "resistencia" },
     { name: "suporte" },
     { name: "atual.close" },
@@ -25,7 +25,7 @@ export const baseStrategy = {
   ],
 
   // Campos/funções usados nas ações
-  varsAcao: [
+  varsAction: [
     { name: "buy()" },
     { name: "sell()" },
     { name: "reset()", descr: "Recalcula suportes e resistências" }
@@ -36,7 +36,7 @@ export const baseStrategy = {
     {
       type: "sell",
       descr: "VENDA se o preço romper resistência",
-      condicao: {
+      condition: {
         combinator: "and",
         rules: [
           { field: "atual.close", operator: ">=", valueSource: "field", value: "resistencia" },
@@ -44,7 +44,7 @@ export const baseStrategy = {
           { field: "flagBuy", operator: "=", valueSource: "value", value: true }
         ]
       } satisfies RuleGroupType,
-      acao: {
+      action: {
         combinator: "and",
         rules: [
           { field: "sell()", operator: "=", value: "" },
@@ -57,7 +57,7 @@ export const baseStrategy = {
     {
       type: "buy",
       descr: "COMPRA se o preço cair abaixo do suporte",
-      condicao: {
+      condition: {
         combinator: "or",
         rules: [
           { field: "index", operator: "=", valueSource: "value", value: 1 },
@@ -71,7 +71,7 @@ export const baseStrategy = {
           }
         ]
       } satisfies RuleGroupType,
-      acao: {
+      action: {
         combinator: "and",
         rules: [
           { field: "buy()", operator: "=", value: "" },
@@ -84,13 +84,13 @@ export const baseStrategy = {
     {
       type: "reset",
       descr: "RESET se tempo inativo for alto",
-      condicao: {
+      condition: {
         combinator: "and",
         rules: [
           { field: "tempoInativo", operator: ">", valueSource: "value", value: 10 }
         ]
       } satisfies RuleGroupType,
-      acao: {
+      action: {
         combinator: "and",
         rules: [
           { field: "reset()", operator: "=", value: "" },
