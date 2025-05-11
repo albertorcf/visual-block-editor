@@ -5,16 +5,17 @@ interface ListboxProps {
   selectedIndex?: number;
   onSelect?: (index: number) => void;
   headers?: string[];
+  className?: string;
 }
 
-export default function Listbox({ items, selectedIndex, onSelect, headers }: ListboxProps) {
+export default function Listbox({ items, selectedIndex, onSelect, headers, className }: ListboxProps) {
   const isTable = Array.isArray(items[0]);
 
   return (
-    <div className="h-full overflow-y-auto rounded border bg-white">
+    <div className={`h-full overflow-y-auto ${className}`}>
       {isTable ? (
         // Table
-        <table className="table-fixed w-full text-sm">
+        <table className="h-full w-full text-sm">
           {headers && (
             <thead>
               <tr className="bg-gray-100">
