@@ -45,7 +45,6 @@ export default function Listbox({ items, selectedIndex, onSelect, title, heightC
           </table>
         ) : (
           // Simples
-          <>
           <ul className="divide-y divide-gray-200">
           {(items as string[]).map((item, index) => (
             <li
@@ -58,15 +57,6 @@ export default function Listbox({ items, selectedIndex, onSelect, title, heightC
             </li>
           ))}
           </ul>
-
-              <div 
-              className="h-12 overflow-y-auto bg-green-100 font-semibold cursor-pointer border-solid">
-                Teste Tailwind<br/>
-                Linha2<br/>
-                Linha3<br/>
-                Linha4
-              </div>          
-          </>
         )}
       </div>
     </div>
