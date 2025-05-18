@@ -2,61 +2,70 @@
 import { RuleGroupType } from "react-querybuilder";
 
 export const baseStrategy = {
-  // Estado inicial da simulação
-  init: [
-    { name: "saldoUSDT", value: 100 },
-    { name: "saldoSOL", value: 0.1 },
-    { name: "delta", value: 1 },
-    { name: "qty", value: 0.1 },
-    { name: "taxa", value: 0.001 },
-    { name: "flagBuy", value: true },
-    { name: "last", value: 1 },
-    { name: "iddle", value: 10 },  
+  // Todas as variáveis e funções em uma única seção "vars"
+  vars: [
+    // State
+    { name: "saldoUSDT", value: 100, type: "state" },
+    { name: "saldoSOL", value: 1, type: "state" },
+    { name: "delta", value: 1, type: "state" },
+    { name: "qty", value: 0.1, type: "state" },
+    { name: "taxa", value: 0.001, type: "state" },
+    { name: "lastOp", value: "V", type: "state" },
+    { name: "candleOp", value: "I", type: "state" },
+    { name: "last", value: 1, type: "state" },
+    { name: "iddleInit", value: 10, type: "state" },
+    { name: "iddleCount", value: 10, type: "state" },
+    { name: "sellCount", value: 0, type: "state" },
+    { name: "buyCount", value: 0, type: "state" },
+    { name: "opCount", value: 0, type: "state" },
+    { name: "last", value: 0, type: "state" },
+
+    // Candle
+    { name: "close", value: 0, type: "candle" },
+    { name: "index", value: 0, type: "candle" },
+    { name: "time",  value: 0, type: "candle" },
+
+    // Computed
+    { name: "resistencia", value: 0, type: "computed" },
+    { name: "suporte", value: 0, type: "computed" },
+    { name: "valorOp", expr: "close * qty", type: "computed" },
+    { name: "inativo", expr: "index - last", type: "computed" },
+
+    // Actions
+    { name: "buy()", descr: "Compra qty, atualiza saldoUSDT, saldoSOL, buyCount, lastOp, candleOp", type: "action" },
+    { name: "sell()", descr: "Vende qty, atualiza saldoUSDT, saldoSOL, sellCount, lastOp, candleOp", type: "action" },
+    { name: "reset()", descr: "Atualiza suporte e resistência para close -+ delta, candleOp = 'R'", type: "action" },
+    { name: "resetR()", descr: "Atualiza resistência para close + delta, candleOp = 'R'", type: "action" },
+    { name: "resetS()", descr: "Atualiza suporte para close - delta, candleOp = 'R'", type: "action" },
   ],
 
-  // Campos usados nas condições
-  varsCondition: [
-    { name: "resistencia" },
-    { name: "suporte" },
-    { name: "atual.close" },
-    { name: "index" },
-    { name: "valorOp", expr: "close * qty" },       // campo calculado - valor da operação (atual.close * qty)
-    { name: "tempoInativo", expr: "index - last" }  // campo calculado (index - last)
-  ],
-
-  // Campos/funções usados nas ações
-  varsAction: [
-    { name: "buy()" },
-    { name: "sell()" },
-    { name: "reset()", descr: "Recalcula suportes e resistências" }
-  ],
-
-  // Regras de decisão
+  // Regras de decisão permanecem iguais
   rules: [
     {
       type: "sell",
       descr: "VENDA se o preço romper resistência",
+
       condition: {
         combinator: "and",
         rules: [
-          { field: "atual.close", operator: ">=", valueSource: "field", value: "resistencia" },
-          { field: "saldoSOL", operator: ">=", valueSource: "value", value: 0.1 },
-          { field: "flagBuy", operator: "=", valueSource: "value", value: true }
+          { field: "close",    operator: ">=", valueSource: "field", value: "resistencia" },
+          { field: "saldoSOL", operator: ">=", valueSource: "field", value: "qty" },
+          { field: "lastOp",   operator: "==", valueSource: "value", value: "C" }
         ]
       } satisfies RuleGroupType,
+
       action: {
         combinator: "and",
         rules: [
-          { field: "sell()", operator: "=", value: "" },
-          { field: "flagBuy", operator: "=", value: true },
+          { field: "sell()",  operator: "=", value: "" },
           { field: "reset()", operator: "=", value: "" },
-          { field: "last", operator: "=", value: "index", valueSource: "field" }
         ]
       } satisfies RuleGroupType,
     },
     {
       type: "buy",
       descr: "COMPRA se o preço cair abaixo do suporte",
+
       condition: {
         combinator: "or",
         rules: [
@@ -64,37 +73,37 @@ export const baseStrategy = {
           {
             combinator: "and",
             rules: [
-              { field: "atual.close", operator: "<=", valueSource: "field", value: "suporte" },
+              { field: "close",     operator: "<=", valueSource: "field", value: "suporte" },
               { field: "saldoUSDT", operator: ">=", valueSource: "field", value: "valorOp" },
-              { field: "flagBuy", operator: "=", valueSource: "value", value: true }
+              { field: "lastOp",    operator: "==", valueSource: "value", value: "V" }
             ]
           }
         ]
       } satisfies RuleGroupType,
+
       action: {
         combinator: "and",
         rules: [
-          { field: "buy()", operator: "=", value: "" },
-          { field: "flagBuy", operator: "=", value: false },
+          { field: "buy()",   operator: "=", value: "" },
           { field: "reset()", operator: "=", value: "" },
-          { field: "last", operator: "=", value: "index", valueSource: "field" }
         ]
       } satisfies RuleGroupType,
     },
     {
       type: "reset",
       descr: "RESET se tempo inativo for alto",
+
       condition: {
         combinator: "and",
         rules: [
-          { field: "tempoInativo", operator: ">", valueSource: "value", value: 10 }
+          { field: "iddleCount", operator: "<=", valueSource: "value", value: 0 }
         ]
       } satisfies RuleGroupType,
+
       action: {
         combinator: "and",
         rules: [
           { field: "reset()", operator: "=", value: "" },
-          { field: "last", operator: "=", value: "index", valueSource: "field" }
         ]
       } satisfies RuleGroupType,
     }

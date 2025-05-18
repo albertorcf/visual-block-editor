@@ -1,13 +1,19 @@
-// src/app/page.tsx
+// packages/visual-editor/src/app/query-builder/page.tsx
 "use client";
 import { useState, useEffect, Fragment } from "react";
 import { RuleGroupType } from "react-querybuilder";
-import QueryBuilderEditor from "@/components/query-builder/QueryBuilderEditor";
-import Listbox from "@/components/Listbox";
+import { QueryBuilderEditor, Listbox } from "visual-editor";
 
 // Carrega a estratégia de exemplo
 import { baseStrategy } from "@/data/strategies/baseStrategy";
-const { init, varsCondition, varsAction, rules } = baseStrategy;
+const { vars, rules } = baseStrategy;
+
+// Separe as variáveis por tipo
+const init = vars.filter(v => v.type === "state" || v.type === "candle");
+const varsCondition = vars.filter(v => v.type === "computed" && !v.name.endsWith("()"));
+const varsAction = vars.filter(v => v.type === "action");
+
+console.log('vars =', vars)
 console.log('init =', init)
 console.log('varsCondition =', varsCondition)
 console.log('varsAction =', varsAction)
@@ -76,46 +82,47 @@ export default function QueryBuilderPage() {
 
   return (
     <main className="flex flex-col gap-4 w-full max-w-none px-4 sm:px-6 mx-auto">
+
       <h1 className="text-2xl font-bold mb-2">Query Builder Editor</h1>
 
+      <div className="flex flex-col lg:flex-row gap-6 mb-4 h-37 w-full">
 
-      <div className="flex flex-col lg:flex-row gap-6 mb-1 w-full">
         {/* Listbox de regras (selecionável) */}
         <div className="flex-1">
+          <h2 className="mb-1 font-semibold">Regras</h2>
           <Listbox
+            className="rounded border bg-white h-37"
             items={rules.map((r) => r.descr)}
             selectedIndex={selectedRuleIndex}
             onSelect={handleSelectRule}
-            title="Regras"
-            heightClass="h-37"
           />
         </div>
 
         {/* Listbox de variáveis da condição */}
         <div className="flex-1">
+          <h2 className="mb-1 font-semibold">Variáveis da Condição</h2>
           <Listbox
-            title="Variáveis da Condição"
+            className="rounded border bg-white"
             headers={["Nome", "Valor", "Expr"]}
             items={[...init, ...varsCondition].map((v: any) => [
               v.name,
               v.value ? v.value : "",
               v.expr ?? ""
             ])}
-            heightClass="h-37"
           />
         </div>
 
         {/* Listbox de variáveis da ação */}
         <div className="flex-1">
+          <h2 className="mb-1 font-semibold">Variáveis da Ação</h2>
           <Listbox
-            title="Variáveis da Ação"
+            className="rounded border bg-white"
             headers={["Nome", "Valor", "Expr"]}
             items={[...init, ...varsAction].map((v: any) => [
               v.name,
               v.value ? v.value : "",
               v.expr ?? ""
             ])}
-            heightClass="h-37"
           />
         </div>
 
@@ -155,7 +162,7 @@ export default function QueryBuilderPage() {
 
       {/* Área de visualização do JSON gerado */}
       <div className="flex flex-col lg:flex-row gap-4 mt-1">
-        
+
         {/* Coluna 1: JSON Condição */}
         <div className="flex-1">
           <h2 className="text-lg font-semibold mb-1">JSON Condição:</h2>
@@ -171,7 +178,9 @@ export default function QueryBuilderPage() {
             {JSON.stringify(actionQuery, null, 2)}
           </pre>
         </div>
+
+
       </div>
     </main>
-  ); 
+  );
 }
