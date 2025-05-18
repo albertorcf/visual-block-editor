@@ -1,6 +1,7 @@
 // src/components/query-builder/QueryBuilderEditor.tsx
 "use client";
 import { QueryBuilder, RuleGroupType, Option } from "react-querybuilder";
+import { CustomValueEditor } from './CustomValueEditor';
 import "react-querybuilder/dist/query-builder.css";
 import "./styles.css";
 
@@ -25,7 +26,7 @@ export default function QueryBuilderEditor({
         fields={fields}
         query={query}
         onQueryChange={onQueryChange}
-        controlElements={{}}
+        controlElements={{ valueEditor: CustomValueEditor }}
         controlClassnames={{}}
         operators={operators}
       />

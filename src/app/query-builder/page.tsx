@@ -3,6 +3,8 @@
 import { useState, useEffect, Fragment } from "react";
 import { RuleGroupType } from "react-querybuilder";
 import { QueryBuilderEditor, Listbox } from "visual-editor";
+import { fields } from './fields';
+import { initialQuery } from './initialQuery';
 
 // Carrega a estratégia de exemplo
 import { baseStrategy } from "@/data/strategies/baseStrategy";
@@ -80,10 +82,25 @@ export default function QueryBuilderPage() {
     v.expr ? `${v.name} (${v.expr})` : v.name
   );
 
+  // CustomValueEditor test!
+  const [query, setQuery] = useState(initialQuery);
+
   return (
     <main className="flex flex-col gap-4 w-full max-w-none px-4 sm:px-6 mx-auto">
 
       <h1 className="text-2xl font-bold mb-2">Query Builder Editor</h1>
+
+      {/* CustomValueEditor test! */}
+      <div className="flex flex-col lg:flex-row gap-4 w-full">
+        <div className="flex-1">
+          <h2 className="text-lg font-semibold mb-1">CustomValueEditor test</h2>
+          <QueryBuilderEditor
+            fields={fields}
+            query={query}
+            onQueryChange={setQuery}
+          />
+        </div>
+      </div>
 
       <div className="flex flex-col lg:flex-row gap-6 mb-4 h-37 w-full">
 
