@@ -92,7 +92,8 @@ export default function QueryBuilderPage() {
 
       {/* CustomValueEditor test! */}
       <div className="flex flex-col lg:flex-row gap-4 w-full">
-        <div className="flex-1">
+        {/* QueryBuildEditor */}
+        <div className="flex-3">
           <h2 className="text-lg font-semibold mb-1">CustomValueEditor test</h2>
           <QueryBuilderEditor
             fields={fields}
@@ -100,16 +101,16 @@ export default function QueryBuilderPage() {
             onQueryChange={setQuery}
           />
         </div>
-      </div>
-      {/* Área de visualização do JSON gerado */}
-      <div className="flex flex-col lg:flex-row gap-4 mt-1">
-        {/* Coluna 1: JSON query */}
-        <div className="flex-1">
+        {/* JSON query */}
+        <div className="flex-2">
           <h2 className="text-lg font-semibold mb-1">CustomValueEditor test:</h2>
           <pre className="bg-gray-100 p-4 rounded text-xs">
             {JSON.stringify(query, null, 2)}
           </pre>
         </div>
+      </div>
+      {/* Área de visualização do JSON gerado */}
+      <div className="flex flex-col lg:flex-row gap-4 mt-1">
       </div>
 
       <div className="flex flex-col lg:flex-row gap-6 mb-4 h-37 w-full">
