@@ -8,7 +8,7 @@ const dateFormat = 'yyyy-MM-dd';
 
 export const CustomValueEditor = (props: ValueEditorProps) => {
   //console.log('props.fieldData.datatype=', props.fieldData.datatype);
-  if (props.fieldData.datatype === 'function') {
+  if (props.fieldData.datatype === 'function' || props.fieldData.datatype === 'void') {
     return (<></>);
   } else if (props.fieldData.datatype === 'date') {
     return (
