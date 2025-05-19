@@ -7,6 +7,8 @@ const initialRange = [subDays(new Date(), 14), new Date()]
   .join(',');
 
 export const initialQuery: RuleGroupType = {
+  combinator: 'and',
+  not: false,
   rules: [
     {
       field: 'name',
@@ -23,7 +25,10 @@ export const initialQuery: RuleGroupType = {
       value: initialRange,
       operator: 'between',
     },
+    {
+      field: 'functionA()',
+      value: '',
+      operator: 'function',
+    },
   ],
-  combinator: 'and',
-  not: false,
 };

@@ -22,4 +22,16 @@ export const fields: Field[] = [
     operators: [{ name: 'between', label: 'is between' }],
     datatype: 'dateRange',
   },
+  {
+    name: 'functionA()',
+    label: 'functionA()',
+    operators: [{ name: 'function', label: 'function call' }],
+    datatype: 'function',
+  },
+  {
+    name: 'functionB()',
+    label: 'functionB()',
+    operators: [{ name: 'function', label: 'function call' }],
+    datatype: 'function',
+  },
 ];

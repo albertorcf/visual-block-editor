@@ -7,7 +7,9 @@ import { ValueEditor, ValueEditorProps } from 'react-querybuilder';
 const dateFormat = 'yyyy-MM-dd';
 
 export const CustomValueEditor = (props: ValueEditorProps) => {
-  if (props.fieldData.datatype === 'date') {
+  if (props.fieldData.datatype === 'function') {
+    return (<></>);
+  } else if (props.fieldData.datatype === 'date') {
     return (
       <div>
         <DatePicker
